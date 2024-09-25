@@ -22,6 +22,7 @@ void test_validate_my_username()
     // my_username();
     // malloc_username_from_conf_file();
 
-    TEST_ASSERT_EQUAL_STRING_MESSAGE(my_username(), malloc_username_from_conf_file(), "These Strings Are The Same");
-
+	char* username = malloc_username_from_conf_file();
+    TEST_ASSERT_EQUAL_STRING_MESSAGE(my_username(), username, "These Strings Are The Same");
+	free(username);
 }
