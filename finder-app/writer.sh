@@ -12,7 +12,8 @@ path=$(dirname "$1")
 
 mkdir -p "${path}"
 
-echo $2 >> $1
+#echo $2 >> $1
+./writer.o "$2" "$1"
 
 
 
