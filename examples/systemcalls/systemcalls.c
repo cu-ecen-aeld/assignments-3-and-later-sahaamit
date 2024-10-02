@@ -1,4 +1,10 @@
 #include "systemcalls.h"
+#include <sys/wait.h> // wait
+#include <unistd.h> // fork()
+#include <stdlib.h> // system()
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 /**
  * @param cmd the command to execute with system()
@@ -16,8 +22,7 @@ bool do_system(const char *cmd)
  *   and return a boolean true if the system() call completed with success
  *   or false() if it returned a failure
 */
-
-    return true;
+    return system(cmd) == 0;
 }
 
 /**
@@ -58,10 +63,23 @@ bool do_exec(int count, ...)
  *   as second argument to the execv() command.
  *
 */
+    pid_t pid = fork();
+    bool status = false;
+    if (pid == 0) {
+        status = execv(command[0], command) == 0;
+    } else {
+        int child_status = 0;
+        pid_t terminated_child_pid = wait(&child_status);
+        if (pid != terminated_child_pid) {
+            printf("Terminated child pid doesn't get matched with PID");
+            status = false;
+        } else {
+            status = child_status == 0;
+        }
+    }
 
     va_end(args);
-
-    return true;
+    return status;
 }
 
 /**
@@ -92,8 +110,9 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
  *   The rest of the behaviour is same as do_exec()
  *
 */
-
+    int fd = open(outputfile, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+    dup2(fd, 1);
+    bool status = execv(command[0], command) == 0;
     va_end(args);
-
-    return true;
+    return status;
 }
