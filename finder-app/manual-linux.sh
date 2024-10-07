@@ -56,7 +56,7 @@ cd "$OUTDIR"
 if [ -d "${OUTDIR}/rootfs" ]
 then
 	echo "Deleting rootfs directory at ${OUTDIR}/rootfs and starting over"
-    sudo rm  -rf ${OUTDIR}/rootfs
+  sudo rm  -rf ${OUTDIR}/rootfs
 fi
 
 # TODO: Create necessary base directories
@@ -109,7 +109,7 @@ make -C "${FINDER_APP_DIR}/"
 cp "${FINDER_APP_DIR}/writer" "$OUTDIR/rootfs/home/"
 
 # TODO: Chown the root directory
-chown -R root:root "$OUTDIR/rootfs/"
+sudo chown -R root:root "$OUTDIR/rootfs/"
 
 # TODO: Create initramfs.cpio.gz
 cd "$OUTDIR/rootfs/"
