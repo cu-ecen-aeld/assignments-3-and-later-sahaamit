@@ -114,6 +114,11 @@ cp -r "${FINDER_APP_DIR}/conf/username.txt" "$OUTDIR/rootfs/home/conf/"
 
 cp "${FINDER_APP_DIR}/finder.sh" "$OUTDIR/rootfs/home/"
 cp "${FINDER_APP_DIR}/finder-test.sh" "$OUTDIR/rootfs/home/"
+cp "${FINDER_APP_DIR}/autorun-qemu.sh" "$OUTDIR/rootfs/home/"
+cp "${FINDER_APP_DIR}/dependencies.sh" "$OUTDIR/rootfs/home/"
+cp "${FINDER_APP_DIR}/Makefile" "$OUTDIR/rootfs/home/"
+cp "${FINDER_APP_DIR}/start-qemu-app.sh" "$OUTDIR/rootfs/home/"
+cp "${FINDER_APP_DIR}/start-qemu-terminal.sh" "$OUTDIR/rootfs/home/"
 
 cp "${FINDER_APP_DIR}/writer.c" "$OUTDIR/rootfs/home/"
 cp "${FINDER_APP_DIR}/writer.sh" "$OUTDIR/rootfs/home/"
