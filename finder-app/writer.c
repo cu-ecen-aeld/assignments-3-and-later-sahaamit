@@ -2,7 +2,7 @@
 #include <syslog.h>
 
 int main(int argc, char **argv) {
-    printf("Writing %s to %s", argv[1], argv[2]);
+    printf("Writing %s to %s\n", argv[1], argv[2]);
     openlog(NULL, 0, LOG_USER);
 
     if (argc == 1) {
