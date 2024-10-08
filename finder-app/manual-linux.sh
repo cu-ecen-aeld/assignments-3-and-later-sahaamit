@@ -103,11 +103,20 @@ sudo mknod -m 666 "$OUTDIR/rootfs/dev/null" c 1 3
 sudo mknod -m 666 "$OUTDIR/rootfs/dev/console" c 5 1
 
 # TODO: Clean and build the writer utility
-make -C "${FINDER_APP_DIR}/" clean
-make -C "${FINDER_APP_DIR}/"
+make -C "${FINDER_APP_DIR}/" CROSS_COMPILE=${CROSS_COMPILE} clean
+make -C "${FINDER_APP_DIR}/" CROSS_COMPILE=${CROSS_COMPILE}
 
 # Copying the finder related scripts and executables to the /home directory
 # on the target rootfs
+mkdir -p "$OUTDIR/rootfs/home/conf/"
+cp -r "${FINDER_APP_DIR}/conf/assignment.txt" "$OUTDIR/rootfs/home/conf/"
+cp -r "${FINDER_APP_DIR}/conf/username.txt" "$OUTDIR/rootfs/home/conf/"
+
+cp "${FINDER_APP_DIR}/finder.sh" "$OUTDIR/rootfs/home/"
+cp "${FINDER_APP_DIR}/finder-test.sh" "$OUTDIR/rootfs/home/"
+
+cp "${FINDER_APP_DIR}/writer.c" "$OUTDIR/rootfs/home/"
+cp "${FINDER_APP_DIR}/writer.sh" "$OUTDIR/rootfs/home/"
 cp "${FINDER_APP_DIR}/writer" "$OUTDIR/rootfs/home/"
 
 # Changing ownership of root directory
